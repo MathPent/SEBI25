@@ -14,33 +14,36 @@ Our solution leverages **AI/ML, data analytics, and fraud prevention techniques*
 - 📂 **Modular Backend** – Node.js + Python ML models integrated with structured database.  
 
 ---
-
+  
 ## 🏗️ Project Structure  
-```bash
+
 SEBI25/
 │── ai-ml/
-│   └── src/                # AI/ML models & scripts
+│   └── src/                
+│       ├── fraud_model.py          # Fraud detection model (Sklearn + Joblib)
+│       ├── arima_forecast.py       # ARIMA-based time-series forecasting
+│       └── utils.py                # Helper functions for preprocessing & training
 │
 │── backend/
 │   └── src/
-│       ├── final project sturcture/
-│       │   ├── data/       # Datasets
-│       │   ├── models/     # Trained models
-│       │   ├── results/    # Output & analysis results
+│       ├── final project structure/
+│       │   ├── data/               # Datasets for training/testing
+│       │   ├── models/             # Stored trained models (Joblib)
+│       │   ├── results/            # Generated outputs & predictions
 │       │   ├── stock_fraud_project/
-│       │   └── fraud prevention/
-│       └── app.js          # Backend entrypoint
+│       │   └── fraud_prevention/   # Core fraud-prevention logic
+│       └── app.js                  # Node.js backend entrypoint
 │
-│── database/               # Database scripts/configs
+│── database/                       # Database configs / scripts
 │
 │── frontend/
 │   └── pages/
-│       ├── analys.css      # Styling
-│       ├── analys.html     # Analysis UI
-│       ├── analys.js       # Frontend logic
-│       └── fakehype.html   # Fake hype detection page
+│       ├── analys.css              # Styling for dashboard
+│       ├── analys.html             # Analysis UI page
+│       ├── analys.js               # JS logic for interaction
+│       └── fakehype.html           # Fake hype detection page
 │
-└── src/                    # Additional codebase
+└── src/                            # Additional shared utilities
 
 ⚙️ Tech Stack
 🔹 Frontend
