@@ -73,30 +73,63 @@ matplotlib.pyplot – Visualization of trends & anomalies
 
 statsmodels.tsa.arima.model – ARIMA models for time series forecasting
 
-🚀 Getting Started
-1️⃣ Clone the repository
+## 🚀 Getting Started  
+
+### 1️⃣ Clone the repository  
+```bash
 git clone https://github.com/epixcoding/SEBI25.git
 cd SEBI25
-
-2️⃣ Setup Backend
+2️⃣ Setup Backend (Node.js + Python ML)
+🔹 Node.js Server Setup
+bash
+Copy code
 cd backend/src
 npm install
 node app.js
+🔹 Python Environment Setup
+Install required Python libraries for AI/ML models:
+
+bash
+Copy code
+pip install yfinance pandas joblib numpy scikit-learn matplotlib statsmodels
+Library Usage in Backend
+
+yfinance → Fetch stock market & financial data in real time
+
+pandas → Clean, preprocess, and structure datasets
+
+numpy → Numerical computations for ML pipelines
+
+joblib → Save and load ML models efficiently
+
+scikit-learn (model_selection, metrics) → Train/test split, evaluation metrics for fraud detection models
+
+matplotlib.pyplot → Visualize anomalies, fraud trends, and patterns
+
+statsmodels.tsa.arima.model → Time-series forecasting using ARIMA models (market trend prediction)
 
 3️⃣ Setup Frontend
-
 Open frontend/pages/analys.html in a browser.
 
-4️⃣ AI/ML Models
+4️⃣ Run AI/ML Models
+bash
+Copy code
 cd ai-ml/src
-# Example: run fraud detection model
 python fraud_model.py
+yaml
+Copy code
+
+---
+
+⚡ Now the backend setup **clearly shows how to install dependencies** and **how each library is used** → this will impress judges because it demonstrates clarity and modularity.  
+
+Do you want me to **reinsert this updated section into the full README** so you have one clean final versio
 
 🧪 Usage
 
-Run backend server (app.js) → serves APIs for fraud detection.
+Run backend server  → serves APIs for fraud detection.
 
-Use frontend (analys.html, fakehype.html) → interact with analysis dashboard.
+Use frontend  → interact with analysis dashboard.
 
 AI/ML scripts → run training & inference to detect anomalies.
 
@@ -110,16 +143,17 @@ Our prototype addresses fraudulent trading detection, fake hype identification, 
 
 👥 Team Members
 
-Ayush Kumar
-
+Ayush Kumar[TEAM LEADER]
 Rajib Chowdhury
+Arpit Anand
+Jayant Raj Verma
+Saurav Kumar
 
-[Add rest of your teammates here]
 
 🔮 Future Scope
 
 Integration with SEBI APIs for real-time fraud detection.
 
-Scalable deployment on cloud (AWS/GCP).
+Scalable deployment on cloud (Fast Api/Render/Vercel)
 
 Visualization dashboards with live alerts.
