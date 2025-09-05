@@ -15,8 +15,10 @@ Our solution leverages **AI/ML, data analytics, and fraud prevention techniques*
 
 ---
   
-## 🏗️ Project Structure  
+ 
 
+## 🏗️ Project Structure  
+```bash
 SEBI25/
 │── ai-ml/
 │   └── src/                
