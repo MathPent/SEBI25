@@ -16,10 +16,10 @@
     <!-- The header section of the page, which is sticky at the top. -->
     <header class="site-header">
       <div class="container header-container">
-        <h1 class="logo">Social Sentinel</h1>
+        <h1 class="logo">Stock Filter</h1>
         <div class="header-link">
           <a href="index.html" class="active">Home</a>
-          <a href="#">Fake Hype</a>
+          <a href="../pages/fakehype.html">Fake Hype</a>
           <a href="../pages/analys.html">Analyse Stock</a>
           <a href="#"></a>
         </div>
@@ -136,55 +136,6 @@
       </section>
 
       <!-- The Problem Section: Explaining the issue we are solving. -->
-      <section class="content-section">
-        <h3 class="section-title">The Problem: A Market Tilted Against You</h3>
-        <div class="card">
-          <h4>1. Vulnerability to Sophisticated Scams</h4>
-          <p>
-            Retail investors are the primary targets of coordinated "pump and
-            dump" schemes, where manipulators create artificial hype to inflate
-            a stock's price before crashing it by selling their shares, leading
-            to huge losses for others.
-          </p>
-          <details class="explainer">
-            <summary>What is a Pump & Dump Scheme?</summary>
-            <p>
-              <strong>The Pump:</strong> Manipulators buy a cheap stock and
-              aggressively promote it with false promises online, tricking
-              others into buying and driving the price up.
-            </p>
-            <p>
-              <strong>The Dump:</strong> The manipulators sell all their shares
-              at the inflated price, causing the stock to crash and leaving new
-              investors with massive losses.
-            </p>
-          </details>
-        </div>
-        <div class="card">
-          <h4>2. Information Overload & Noise</h4>
-          <p>
-            It is impossible for an individual to manually sift through
-            thousands of social media posts to distinguish genuine discussion
-            from fraudulent promotion. The sheer volume of data is overwhelming.
-          </p>
-        </div>
-        <div class="card">
-          <h4>3. Lack of Accessible Verification Tools</h4>
-          <p>
-            An investor might see a "hot stock tip" online but has no quick or
-            reliable way to verify its credibility or check if a sudden surge in
-            positive sentiment is organic or artificially manufactured.
-          </p>
-        </div>
-        <div class="card">
-          <h4>4. Prohibitive Cost of Pro-Grade Tools</h4>
-          <p>
-            The powerful surveillance and analysis platforms used by regulators
-            and hedge funds are completely out of reach for the average person,
-            costing lakhs of rupees annually.
-          </p>
-        </div>
-      </section>
 
       <!-- Advanced Features Section: Highlighting our unique selling points. -->
       <section class="content-section">
@@ -230,6 +181,12 @@
               credibility score for authors based on their track record.
             </p>
           </div>
+        </div>
+      </section>
+      <section class="news-section" id="news-section">
+        <h3 class="section-title">📢 Latest Stock Market News</h3>
+        <div id="news-container" class="news-container">
+          <p class="loading">Fetching latest news...</p>
         </div>
       </section>
     </main>

@@ -185,6 +185,121 @@ document.addEventListener("DOMContentLoaded", () => {
       resultsContent.classList.remove("hidden");
       displayResults(data);
     });
+    function mockApiCall(ticker) {
+      // --- Start of New Dynamic Mocking Logic ---
+      const mockAuthors = [
+        "StockGuru42",
+        "DiamondHandz",
+        "MarketMover",
+        "BullRider",
+        "FinWizard",
+        "SecretScout",
+      ];
+      const mockKeywords = {
+        hype: [
+          "to the moon",
+          "10x gains",
+          "unbelievable",
+          "HUGE news",
+          "rocket 🚀",
+        ],
+        urgency: [
+          "act fast",
+          "don't miss out",
+          "buy now",
+          "last chance",
+          "imminent",
+        ],
+        guarantee: [
+          "guaranteed returns",
+          "zero risk",
+          "a sure thing",
+          "cannot fail",
+          "easy money",
+        ],
+      };
+      const mockPlatforms = ["Twitter", "Telegram", "Facebook", "Instagram"];
+
+      function getRandomElement(arr) {
+        return arr[Math.floor(Math.random() * arr.length)];
+      }
+
+      function generateSuspiciousPost(ticker) {
+        const keywords = [
+          getRandomElement(mockKeywords.hype),
+          getRandomElement(mockKeywords.urgency),
+          getRandomElement(mockKeywords.guarantee),
+        ];
+        const text = `Big news for ${ticker}! I'm seeing signals for ${keywords[0]}. You need to ${keywords[1]} on this. It's practically ${keywords[2]}!`;
+        return {
+          platform: getRandomElement(mockPlatforms),
+          author:
+            getRandomElement(mockAuthors) + Math.floor(Math.random() * 100),
+          timestamp: new Date(
+            Date.now() - Math.random() * 24 * 60 * 60 * 1000
+          ).toISOString(),
+          text: text,
+          keywords: keywords,
+        };
+      }
+      // --- End of New Dynamic Mocking Logic ---
+
+      // Deterministic risk score based on ticker string
+      function hashStringToScore(str) {
+        let hash = 0;
+        for (let i = 0; i < str.length; i++) {
+          hash = (hash << 5) - hash + str.charCodeAt(i);
+          hash |= 0; // Convert to 32bit integer
+        }
+        // Normalize hash to 10-95 range
+        const score = 10 + (Math.abs(hash) % 86);
+        return score;
+      }
+
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          const riskScore = hashStringToScore(ticker);
+          const historicalData = {
+            labels: [],
+            riskScores: [],
+            socialVolumes: [],
+          };
+          for (let i = 6; i >= 0; i--) {
+            const d = new Date();
+            d.setDate(d.getDate() - i);
+            historicalData.labels.push(
+              d.toLocaleDateString("en-IN", { day: "numeric", month: "short" })
+            );
+            // For historical risk scores, you can keep some randomness or also make deterministic if needed
+            historicalData.riskScores.push(Math.floor(Math.random() * 60) + 10);
+            historicalData.socialVolumes.push(
+              Math.floor(Math.random() * 5000) + 500
+            );
+          }
+          historicalData.riskScores[6] = riskScore;
+          historicalData.socialVolumes[6] =
+            Math.floor(Math.random() * 8000) + 2000;
+
+          // Generate a variable number of unique posts
+          const numberOfPosts = Math.ceil(riskScore / 33);
+          const suspiciousPosts = [];
+          if (riskScore > 40) {
+            for (let i = 0; i < numberOfPosts; i++) {
+              suspiciousPosts.push(generateSuspiciousPost(ticker));
+            }
+          }
+
+          const mockData = {
+            ticker: ticker,
+            riskScore: riskScore,
+            historicalData: historicalData,
+            suspiciousPosts: suspiciousPosts,
+          };
+
+          resolve(mockData);
+        }, 1500);
+      });
+    }
   }
 
   function displayResults(data) {
@@ -430,4 +545,45 @@ document.addEventListener("DOMContentLoaded", () => {
       }, 1500);
     });
   }
+});
+//This is the news section js//
+document.addEventListener("DOMContentLoaded", () => {
+  const newsContainer = document.getElementById("news-container");
+
+  async function fetchStockNews() {
+    try {
+      // Using NewsAPI (https://newsapi.org) - you’ll need a free API key
+      const apiKey = "YOUR_NEWSAPI_KEY";
+      const url = `https://newsapi.org/v2/everything?q=stock%20market&language=en&sortBy=publishedAt&pageSize=6&apiKey=${apiKey}`;
+
+      const response = await fetch(url);
+      const data = await response.json();
+
+      if (data.articles && data.articles.length > 0) {
+        renderNews(data.articles);
+      } else {
+        newsContainer.innerHTML = `<p>No news available at the moment.</p>`;
+      }
+    } catch (error) {
+      console.error(error);
+      newsContainer.innerHTML = `<p class="error">⚠️ Failed to load news. Try again later.</p>`;
+    }
+  }
+
+  function renderNews(articles) {
+    const newsHTML = articles
+      .map(
+        (article) => `
+          <div class="news-card">
+            <h4>${article.title}</h4>
+            <p>${article.description || ""}</p>
+            <a href="${article.url}" target="_blank">Read More →</a>
+          </div>
+        `
+      )
+      .join("");
+    newsContainer.innerHTML = newsHTML;
+  }
+
+  fetchStockNews();
 });
