@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Analysis Results - Social Sentinel</title>
+    <!-- Include Chart.js library for rendering the historical chart -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="analysis.js" rel="script.js"></script>
+    <link rel="stylesheet" href="analys.css" />
+  </head>
+  <body>
+    <!-- The header section of the page, which is sticky at the top. -->
+    <header class="site-header">
+      <div class="container header-container">
+        <h1 class="logo">Social Sentinel</h1>
+        <div class="header-link">
+          <a href="../src/index.html">Home</a>
+          <a href="#">Fake Hype</a>
+          <a href="analys.html" class="active">Analyse Stock</a>
+          <a href="#"></a>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <!-- The main section for displaying results. Initially shows a loading spinner. -->
+      <section id="results-section" class="results-section">
+        <!-- This card is shown if the URL parameter is missing or invalid -->
+        <div id="error-message" class="card error-card hidden">
+          <p>
+            Could not find analysis for '<span id="invalid-ticker-text"></span
+            >'. Please
+            <a href="index.html" style="color: white">try another stock</a>.
+          </p>
+        </div>
+        <!-- This spinner is shown while the mock API call is running -->
+        <div id="loading-spinner" class="loading-spinner">
+          <svg class="spinner" viewBox="0 0 50 50">
+            <circle
+              class="path"
+              cx="25"
+              cy="25"
+              r="20"
+              fill="none"
+              stroke-width="5"
+            ></circle>
+          </svg>
+          <p>Our AI is analyzing thousands of posts...</p>
+        </div>
+        <!-- This container holds the actual results and is hidden until data is ready -->
+        <div id="results-content" class="hidden">
+          <h4 class="results-title">
+            Analysis for
+            <span id="result-ticker" class="ticker-highlight"></span>
+          </h4>
+          <div class="card">
+            <p class="card-subtitle">Manipulation Risk Score</p>
+            <div class="gauge">
+              <div class="gauge-bar-background">
+                <div id="gauge-bar" class="gauge-bar"></div>
+              </div>
+              <div id="gauge-text" class="gauge-text">0</div>
+            </div>
+            <div class="gauge-labels">
+              <span>Low Risk</span>
+              <span>Moderate Risk</span>
+              <span>High Risk</span>
+            </div>
+          </div>
+          <div class="card chart-card">
+            <p class="card-subtitle">7-Day Historical Risk & Social Volume</p>
+            <canvas id="historical-chart"></canvas>
+          </div>
+          <div id="tweet-container" class="tweet-container"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>
+          &copy; 2025 Social Sentinel by Team mathpent. A project for the SEBI
+          Securities Market Hackathon.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

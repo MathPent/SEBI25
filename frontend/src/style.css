@@ -73,7 +73,20 @@ body {
   backdrop-filter: blur(10px); /* Frosted glass effect */
   z-index: 1000; /* Ensures header stays on top of other content */
 }
-
+.header-link {
+  display: flex;
+  gap: 2em;
+}
+.header-link a:hover {
+  color: orange;
+}
+.header-link a {
+  text-decoration: none;
+  color: white;
+}
+.header-link a.active {
+  color: red;
+}
 .header-container {
   display: flex;
   justify-content: space-between;

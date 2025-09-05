@@ -1,0 +1,242 @@
+/* This CSS is a streamlined version of the main page's styles to ensure visual consistency. */
+:root {
+  --color-background: #0d1117;
+  --color-surface: #161b22;
+  --color-primary: #3b82f6;
+  --color-secondary: #14b8a6;
+  --color-text-primary: #e6edf3;
+  --color-text-secondary: #8b949e;
+  --color-border: #30363d;
+  --color-success: #238636;
+  --color-warning: #d29922;
+  --color-danger: #da3633;
+  --color-highlight: rgba(251, 191, 36, 0.2);
+  --color-highlight-text: #facc15;
+  --font-family-sans: "Inter", sans-serif;
+  --container-width: 1200px;
+  --border-radius: 12px;
+}
+body {
+  margin: 0;
+  font-family: var(--font-family-sans);
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+}
+.container {
+  width: 90%;
+  max-width: var(--container-width);
+  margin-left: auto;
+  margin-right: auto;
+}
+.hidden {
+  display: none !important;
+}
+.site-header {
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--color-border);
+  position: sticky;
+  top: 0;
+  background-color: rgba(13, 17, 23, 0.8);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+}
+.header-link {
+  display: flex;
+  gap: 2em;
+}
+
+.header-link a {
+  text-decoration: none;
+  color: white;
+}
+.header-link a:hover {
+  color: orange;
+}
+.header-link a.active {
+  color: red;
+}
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.logo {
+  font-size: 1.75rem;
+  font-weight: 800;
+  background: linear-gradient(
+    90deg,
+    var(--color-primary),
+    var(--color-secondary)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0;
+  text-decoration: none;
+}
+.tagline {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+.card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  margin-top: 1rem;
+}
+
+/* Styles specific to the results page */
+.results-section {
+  margin-top: 2rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.results-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+.ticker-highlight {
+  color: var(--color-primary);
+}
+.error-card {
+  text-align: center;
+  background-color: rgba(218, 54, 51, 0.1);
+  border: 1px solid var(--color-danger);
+  color: #ff9090;
+}
+.error-card p {
+  margin: 0;
+}
+.error-card span {
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+.loading-spinner {
+  text-align: center;
+  padding: 2rem;
+}
+.spinner {
+  animation: rotate 2s linear infinite;
+  width: 50px;
+  height: 50px;
+  margin: 0 auto 1rem;
+}
+.path {
+  stroke: var(--color-primary);
+  stroke-linecap: round;
+  animation: dash 1.5s ease-in-out infinite;
+}
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 150;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -35;
+  }
+  100% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -124;
+  }
+}
+.card-subtitle {
+  text-align: center;
+  color: var(--color-text-secondary);
+  margin-bottom: 1rem;
+}
+.gauge {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 3rem;
+}
+.gauge-bar-background {
+  width: 100%;
+  height: 1rem;
+  background-color: var(--color-background);
+  border-radius: 1rem;
+  overflow: hidden;
+}
+.gauge-bar {
+  height: 100%;
+  width: 0%;
+  border-radius: 1rem;
+  transition: width 1s ease-out, background-color 1s ease-out;
+}
+.gauge-text {
+  position: absolute;
+  font-size: 2rem;
+  font-weight: 900;
+}
+.gauge-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  margin-top: 0.5rem;
+}
+.chart-card {
+  margin-top: 2rem;
+}
+.tweet-container {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.tweet-header {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+.post-card {
+  display: flex;
+  gap: 1rem;
+}
+.post-icon {
+  font-size: 1.5rem;
+}
+.post-content {
+  flex-grow: 1;
+}
+.post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.post-author {
+  font-weight: 700;
+}
+.post-timestamp {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+}
+.post-text {
+  margin: 0.5rem 0;
+}
+.keyword {
+  background-color: var(--color-highlight);
+  color: var(--color-highlight-text);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+.site-footer {
+  margin-top: 4rem;
+  padding: 2rem 0;
+  border-top: 1px solid var(--color-border);
+  text-align: center;
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+}
