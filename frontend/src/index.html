@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Social Sentinel - AI-Powered Fraud Prevention</title>
+    <link rel="stylesheet" href="style.css" />
+    <!-- We are including the Chart.js library from a CDN to create our historical data charts. -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="main.js"></script>
+  </head>
+  <body>
+    <!-- The header section of the page, which is sticky at the top. -->
+    <header class="site-header">
+      <div class="container header-container">
+        <h1 class="logo">Social Sentinel</h1>
+        <p class="tagline">SEBI Hackathon 2025 Submission by Team MathPent</p>
+      </div>
+    </header>
+
+    <!-- The main content area of the page. -->
+    <main class="container">
+      <!-- Hero Section: The main introduction and call to action. -->
+      <section class="hero-section">
+        <h2 class="hero-title">
+          Detecting Market Manipulation,<br />
+          <span class="brand-gradient">Before It's Too Late.</span>
+        </h2>
+        <p class="hero-subtitle">
+          Social Sentinel is an AI-powered tool that analyzes social media
+          chatter to uncover "pump and dump" schemes, protecting retail
+          investors from fraud.
+        </p>
+      </section>
+
+      <!-- The Tool Section: This is the interactive part of the application. -->
+      <section id="tool" class="tool-section">
+        <div class="card tool-card">
+          <h3 class="section-title">Analyze Stock Sentiment</h3>
+          <p class="section-subtitle">
+            Enter a stock name or ticker to begin analysis.
+          </p>
+
+          <!-- The form for submitting a stock ticker for analysis. -->
+          <form id="analysis-form" class="analysis-form">
+            <div class="input-container">
+              <input
+                type="text"
+                id="ticker-input"
+                placeholder="e.g., Tata Motors or TATAMOTORS"
+                class="ticker-input"
+                required
+                autocomplete="off"
+              />
+              <!-- This container will hold the dynamically generated stock suggestions. -->
+              <div
+                id="suggestions-container"
+                class="suggestions-container hidden"
+              ></div>
+            </div>
+            <button type="submit" class="button">Analyze</button>
+          </form>
+        </div>
+
+        <!-- Results Section: This area is hidden by default and will be shown after analysis. -->
+        <div id="results-section" class="results-section hidden">
+          <!-- NEW: Error Message Display for invalid tickers -->
+          <div id="error-message" class="card error-card hidden">
+            <p>
+              Please enter a valid stock name or ticker. The input '<span
+                id="invalid-ticker-text"
+              ></span
+              >' was not found.
+            </p>
+          </div>
+
+          <!-- A loading spinner is shown while the "API call" is in progress. -->
+          <div id="loading-spinner" class="loading-spinner hidden">
+            <svg class="spinner" viewBox="0 0 50 50">
+              <circle
+                class="path"
+                cx="25"
+                cy="25"
+                r="20"
+                fill="none"
+                stroke-width="5"
+              ></circle>
+            </svg>
+            <p>Our AI is analyzing thousands of posts...</p>
+          </div>
+
+          <!-- This div will contain the actual results once they are ready. -->
+          <div id="results-content" class="hidden">
+            <h4 class="results-title">
+              Analysis for
+              <span id="result-ticker" class="ticker-highlight"></span>
+            </h4>
+
+            <!-- Risk Score Gauge -->
+            <div class="card">
+              <p class="card-subtitle">Manipulation Risk Score</p>
+              <div class="gauge">
+                <div class="gauge-bar-background">
+                  <div id="gauge-bar" class="gauge-bar"></div>
+                </div>
+                <div id="gauge-text" class="gauge-text">0</div>
+              </div>
+              <div class="gauge-labels">
+                <span>Low Risk</span>
+                <span>Moderate Risk</span>
+                <span>High Risk</span>
+              </div>
+            </div>
+
+            <!-- Historical Data Chart -->
+            <div class="card chart-card">
+              <p class="card-subtitle">7-Day Historical Risk & Social Volume</p>
+              <!-- The canvas element where Chart.js will draw the chart. -->
+              <canvas id="historical-chart"></canvas>
+            </div>
+
+            <!-- Container for suspicious social media posts. -->
+            <div id="tweet-container" class="tweet-container">
+              <!-- Dynamically generated post cards will be inserted here by JavaScript. -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- The Problem Section: Explaining the issue we are solving. -->
+      <section class="content-section">
+        <h3 class="section-title">The Problem: A Market Tilted Against You</h3>
+        <div class="card">
+          <h4>1. Vulnerability to Sophisticated Scams</h4>
+          <p>
+            Retail investors are the primary targets of coordinated "pump and
+            dump" schemes, where manipulators create artificial hype to inflate
+            a stock's price before crashing it by selling their shares, leading
+            to huge losses for others.
+          </p>
+          <details class="explainer">
+            <summary>What is a Pump & Dump Scheme?</summary>
+            <p>
+              <strong>The Pump:</strong> Manipulators buy a cheap stock and
+              aggressively promote it with false promises online, tricking
+              others into buying and driving the price up.
+            </p>
+            <p>
+              <strong>The Dump:</strong> The manipulators sell all their shares
+              at the inflated price, causing the stock to crash and leaving new
+              investors with massive losses.
+            </p>
+          </details>
+        </div>
+        <div class="card">
+          <h4>2. Information Overload & Noise</h4>
+          <p>
+            It is impossible for an individual to manually sift through
+            thousands of social media posts to distinguish genuine discussion
+            from fraudulent promotion. The sheer volume of data is overwhelming.
+          </p>
+        </div>
+        <div class="card">
+          <h4>3. Lack of Accessible Verification Tools</h4>
+          <p>
+            An investor might see a "hot stock tip" online but has no quick or
+            reliable way to verify its credibility or check if a sudden surge in
+            positive sentiment is organic or artificially manufactured.
+          </p>
+        </div>
+        <div class="card">
+          <h4>4. Prohibitive Cost of Pro-Grade Tools</h4>
+          <p>
+            The powerful surveillance and analysis platforms used by regulators
+            and hedge funds are completely out of reach for the average person,
+            costing lakhs of rupees annually.
+          </p>
+        </div>
+      </section>
+
+      <!-- Advanced Features Section: Highlighting our unique selling points. -->
+      <section class="content-section">
+        <h3 class="section-title">Our Unique Features</h3>
+        <div class="features-grid">
+          <div class="card feature-card">
+            <div class="feature-icon">🚨</div>
+            <h4>Real-Time "Spike" Alerts</h4>
+            <p>
+              Get instant notifications if our AI detects a sudden, anomalous
+              spike in social media chatter for a stock on your watchlist.
+            </p>
+          </div>
+          <div class="card feature-card">
+            <div class="feature-icon">📈</div>
+            <h4>Historical Risk & Hype Chart</h4>
+            <p>
+              Our 7-day chart tells a story, showing you if a manipulation
+              scheme is just beginning, peaking, or dying down.
+            </p>
+          </div>
+          <div class="card feature-card">
+            <div class="feature-icon">🕸️</div>
+            <h4>Source Network Analysis</h4>
+            <p>
+              We visualize connections between accounts to expose coordinated
+              bot networks behind the manipulation campaigns.
+            </p>
+          </div>
+          <div class="card feature-card">
+            <div class="feature-icon">⚖️</div>
+            <h4>"Hype vs. Reality" Score</h4>
+            <p>
+              We compare social media chatter against actual trading volume to
+              see if the hype is backed by real market interest.
+            </p>
+          </div>
+          <div class="card feature-card">
+            <div class="feature-icon">⭐</div>
+            <h4>Influencer Credibility Rating</h4>
+            <p>
+              Assess the messenger, not just the message. We provide a
+              credibility score for authors based on their track record.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- The footer of the page. -->
+    <footer class="site-footer">
+      <div class="container">
+        <p>
+          &copy; 2025 Social Sentinel by Team mathpent. A project for the SEBI
+          Securities Market Hackathon.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
