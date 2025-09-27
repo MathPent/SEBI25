@@ -4,31 +4,51 @@ document.addEventListener("DOMContentLoaded", () => {
   const updateStatus = document.getElementById("update-status");
   const skeletons = document.querySelectorAll(".loading-skeleton");
 
-  // This API URL uses a free RSS-to-JSON converter to get data from Google News.
-  const NEWS_API_URL =
-    "https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fnews.google.com%2Frss%2Fsearch%3Fq%3Dindia%2Bstock%2Bmarket%2Bwhen%3A1d%26hl%3Den-IN%26gl%3DIN%26ceid%3DIN%3Aen";
-
   // Keywords used by our "AI" to detect potential hype or manipulation.
   const HIGH_HYPE_KEYWORDS = [
-    "rocket",
-    "to the moon",
-    "guaranteed",
-    "10x",
-    "huge pump",
-    "must buy",
-    "unstoppable",
-    "explosive",
-    "massive gains",
+    "stock tip",
+    "buy now to profit",
+    "insider info",
+    // "to the moon",
+    // "guaranteed",
+    // "10x",
+    // "huge pump",
+    // "must buy",
+    // "unstoppable",
+    // "explosive",
+    // "massive gains",
   ];
   const MEDIUM_HYPE_KEYWORDS = [
-    "don't miss",
-    "big move",
     "hot stock",
-    "soaring",
-    "breakout",
-    "surge",
+    // "don't miss",
+    // "big move",
+    // "soaring",
+    // "breakout",
+    // "surge",
   ];
+  //creating keywords into a query string for newsapi.org
+  function buildQuery(Keywords) {
+    return Keywords.map((word) => `"${word}"`).join(" OR ");
+  }
+  const highHypeQuery = buildQuery(HIGH_HYPE_KEYWORDS);
+  const mediumHypeQuery = buildQuery(MEDIUM_HYPE_KEYWORDS);
 
+  // This is  API for News we are using from newsapi.org -epixjayant
+  const NEWS_APIKEY = "c28d47aade1543d7ae10cf33210df3f0";
+  const query = buildQuery(HIGH_HYPE_KEYWORDS);
+  const NEWS_API_URL = `https://newsapi.org/v2/everything?q=${encodeURIComponent(
+    query
+  )}&apiKey=${NEWS_APIKEY}&language=en&sortBy=publishedAt&pageSize=20`;
+  fetch(NEWS_API_URL)
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data); // check articles
+    })
+    .catch((err) => console.error(err));
+
+  // This API URL uses a free RSS-to-JSON converter to get data from Google News.
+  // const OLD_NEWS_API_URL =
+  //   "https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fnews.google.com%2Frss%2Fsearch%3Fq%3Dindia%2Bstock%2Bmarket%2Bwhen%3A1d%26hl%3Den-IN%26gl%3DIN%26ceid%3DIN%3Aen";
   function getHypeLevel(article) {
     const title = article.title.toLowerCase();
     if (HIGH_HYPE_KEYWORDS.some((keyword) => title.includes(keyword))) {
@@ -53,17 +73,21 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       const data = await response.json();
 
-      if (data.status === "ok" && data.items.length > 0) {
-        // **MODIFIED LOGIC**: We no longer filter. We process and display ALL articles.
-        const allArticles = data.items.map((article) => ({
-          ...article,
-          hype: getHypeLevel(article),
-        }));
-        displayNews(allArticles);
-      } else {
-        showStatus(
-          "Could not retrieve news articles at the moment. Please try again later."
-        );
+      if (data.status === "ok") {
+        const articles = data.articles || data.items; // support both formats
+        if (articles && articles.length > 0) {
+          const allArticles = articles.map((article) => ({
+            ...article,
+            hype: getHypeLevel(article),
+            // normalize NewsAPI fields
+            link: article.url || article.link,
+            thumbnail: article.urlToImage || article.thumbnail,
+            pubDate: article.publishedAt || article.pubDate,
+          }));
+          displayNews(allArticles);
+        } else {
+          showStatus("No news found right now.");
+        }
       }
     } catch (error) {
       console.error("Error fetching news:", error);
@@ -134,5 +158,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Fetch news on page load and then rescan every 10 minutes.
   fetchAndDisplayNews();
-  setInterval(fetchAndDisplayNews, 10 * 60 * 1000);
+  setInterval(fetchAndDisplayNews, 2 * 60 * 1000);
 });
